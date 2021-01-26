@@ -26,7 +26,7 @@ router.post("/addProduct",(req,res)=>{
         else{
             product.save();
             res.redirect("/");
-            console.log("all is good ");
+            
 
       
 }
@@ -58,6 +58,27 @@ router.get("/product/:id",(req,res)=>{
         }
     })
 
+});
+
+router.put("/editProduct/:id",(req,res)=>{
+
+    const title = req.body.title;
+    const description = req.body.description;
+    const price = req.body.price;
+    const imageUrl = req.body.imageUrl;
+
+    product.findByIdAndUpdate(req.params.id,{title,description,price,imageUrl},(err,product)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            product.save();
+            res.redirect("/");
+
+
+    }}
+
+)
 })
 
 
