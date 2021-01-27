@@ -26,10 +26,7 @@ router.post("/addProduct",(req,res)=>{
         else{
             product.save();
             res.redirect("/");
-            
-
-      
-}
+ }
 
     })
 
@@ -75,11 +72,25 @@ router.put("/editProduct/:id",(req,res)=>{
             product.save();
             res.redirect("/");
 
-
-    }}
+ }}
 
 )
+
+
 })
+
+
+router.delete("/deleteProduct/:id",(req,res)=>{
+    product.findByIdAndDelete(req.params.id,(err)=>{
+        if(err){
+            console.log(err);
+        }else{
+            product.save();        }
+
+    })
+
+})
+
 
 
 

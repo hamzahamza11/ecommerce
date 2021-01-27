@@ -10,9 +10,9 @@ function HomePage(){
         const  res = await axios.get("/api/allProduct");
 
         setData(res.data);
-        console.log(data)
+      
 
-       });
+       },[]);
 
 return(
 
