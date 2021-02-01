@@ -40,10 +40,10 @@ function addProduct(){
 
         <form onSubmit={handleSubmit}>
 
-            <input type="text" name="title"  onChange={handleChange}/>
-            <input type="text" name="price" onChange={handleNumberChange}/>
-            <input type="text" name="description" onChange={handleChange}/>
-            <input type="text" name="imageUrl" onChange={handleChange} />
+            <input type="text" name="title"  onChange={handleChange} />
+            <input type="text" name="price" onChange={handleNumberChange} />
+            <input type="text" name="description" onChange={handleChange} />
+            <input type="text" name="imageUrl" onChange={handleChange}   />
 
             <button>submit</button>
             

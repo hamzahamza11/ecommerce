@@ -45,7 +45,7 @@ function EditProduct({props}){
 
     const handleSubmit = async (e)=>{
  
-         const res = await axios.put(`/api/editProduct/${this.props.match.params.id}`,value);
+         const res = await axios.put(`/api/editProduct/${id}`,value);
          console.log(res);
  
 

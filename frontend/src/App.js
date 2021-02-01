@@ -13,7 +13,9 @@ function App() {
         <Route exact path="/editProduct/:id" render={(props) => <EditProduct {...props}/>} />
         <Route exact path="/addProduct" render={() => <AddProduct/>} />
 
-       </Switch></BrowserRouter>
+       </Switch>
+       
+       </BrowserRouter>
         
 
 
