@@ -11,9 +11,10 @@ app.get("/",(req,res)=>{
 
 
 const products = require("./routes/products");
-
+const auth = require("./routes/auth");
 
 app.use("/api",products);
+app.use("/api",auth);
 
 
 
