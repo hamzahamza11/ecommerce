@@ -5,14 +5,18 @@ function HomePage(){
 
     const [data,setData] = useState([])
 
-    useEffect(async () => {
-
+    const fetchData = async ()=>{
         const  res = await axios.get("/api/allProduct");
-
+        console.log(res.data);
         setData(res.data);
-      
+    }
 
+    useEffect(() => {
+
+        fetchData();
        },[]);
+
+       
 
 return(
 

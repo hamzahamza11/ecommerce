@@ -85,7 +85,7 @@ router.delete("/deleteProduct/:id",(req,res)=>{
         if(err){
             console.log(err);
         }else{
-            product.save();        }
+           console.log("succes delete");       }
 
     })
 
