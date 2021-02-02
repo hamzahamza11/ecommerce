@@ -61,13 +61,13 @@ console.log(reselt);
 
 router.post("/singUp",async (req,res)=>{
 
-    try {
-        const validation= await schema.validateAsync(req.body,schema);
-       res.send(validation);
+    // try {
+    //     const validation= await joi.validateAsync(req.body,schema);
+    //    res.send(validation);
         
-    } catch (err) {
-        res.status(404).send(err);
-    }
+    // } catch (err) {
+    //     res.status(404).send(err);
+    // }
   
     console.log(req.body);
 
@@ -83,7 +83,7 @@ router.post("/singUp",async (req,res)=>{
            
 
             try {
-                const admin = await admin.save();
+                const reselt = await admin.save();
                 res.redirect("/");
                 
             } catch (error) {
