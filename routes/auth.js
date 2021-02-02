@@ -42,6 +42,7 @@ const schema = joi.object({
 // });
 
 router.post("/login",(req,res)=>{
+    console.log(req.body);
     let data = req.body;
     admin.find({username:data.username,password:data.password},(err,reselt)=>{
         if(err){
@@ -49,7 +50,7 @@ router.post("/login",(req,res)=>{
         }else if(reselt.length == 0){
             res.send("enter the password and the user name")
  }else{
-    let token = jwt.sign(JSON.parse(JSON.stringify(res[0])), "shhhhh");
+    let token = jwt.sign(JSON.parse(JSON.stringify(reselt[0])), "shhhhh");
     //       //console.log(JSON.parse(result[0]));
           return res.header("auth-token", token).send(token);
 console.log(reselt);
