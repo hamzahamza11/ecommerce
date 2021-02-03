@@ -5,11 +5,11 @@ module.exports = function auth(req, res, next) {
   if (!token) return res.send("access denied!!");
 
   try {
-    let verified = jwt.verify(token, "shhhhh");
+    let verified = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = verified;
     console.log(req.user);
     next();
   } catch (error) {
-    res.send("Invalid Token!");
+    res.status(400).res.send("Invalid Token!");
   }
 };

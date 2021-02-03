@@ -14,6 +14,10 @@ function App() {
         <Route exact path="/editProduct/:id" render={(props) => <EditProduct {...props}/>} />
         <Route exact path="/addProduct" render={() => <AddProduct/>} />
         <Route exact path="/login" render={() => <Login/>} />
+        <Route exact path="/hey" render={() =>
+           localStorage.getItem("isLoggedIn") ?(<h1>logged in </h1>):(<Redirect to="/login" />)
+          } />
+        
 
       </Switch>
        

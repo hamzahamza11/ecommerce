@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 function Login(){
 
     const [value,setValue] = useState("");
+    const [user,setUser] = useState("");
 
     const handleChange = (e)=>{
         e.preventDefault();
@@ -15,15 +16,36 @@ function Login(){
             ...value,
             [e.target.name]:e.target.value
         })
+
+        console.log(value);
     }
-    const handleSubmit = async () => {
-        let user = await axios.post('/api/login',value);
-        //console.log(user);
-        if(user.headers['auth-token']){
-          localStorage.setItem('isLoggedIn',true);
-          localStorage.setItem('user',user.headers['auth-token']);
-          window.location.replace(`/`);
-        }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("hey");
+     
+await axios.post('/api/login',value).then(res=>{
+
+    console.log(res);
+    console.log("hey2");
+}).catch(err=>{
+    console.log(err);
+})
+      
+        
+            
+       
+        
+
+       
+
+        console.log(user);
+
+      
+        // if(user.headers['auth-token']){
+        //   localStorage.setItem('isLoggedIn',true);
+        //   localStorage.setItem('user',user.headers['auth-token']);
+        //   window.location.replace(`/`);
+        // }
       }
 
 
@@ -43,6 +65,7 @@ function Login(){
             <input type="text" name="password" onChange={handleChange}   />
 
             <button>submit</button>
+            {user}
             
        </form>     
 
