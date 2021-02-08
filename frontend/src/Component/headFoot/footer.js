@@ -2,7 +2,7 @@ import {useState} from "react";
 
 
 
-function footer(){
+function Footer(){
  
     return(
         <div>
@@ -12,3 +12,5 @@ function footer(){
         </div>
     )
 }
+
+export default Footer;

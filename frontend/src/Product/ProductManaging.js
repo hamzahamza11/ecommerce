@@ -10,5 +10,10 @@ export const deleteProduct= async (id)=>{
         console.log(res);
 }
 
+export const addToCart = async (id)=>{
+        const res = await axios.post(`/api/addToCart/${id}`)
+
+}
+
 
 

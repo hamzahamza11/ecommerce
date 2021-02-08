@@ -5,6 +5,7 @@ var router = express.Router();
 var bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
 const admin = require("../modules/admin");
+const user = require("../modules/user");
 const joi = require("joi");
 const bcrypt = require("bcryptjs");
 
@@ -16,6 +17,28 @@ const schema = joi.object({
     username:joi.string().min(6).required(),
     password: joi.string().min(6).required()
 })
+
+ 
+router.post("/user",async (req,res)=>{
+
+
+    const name = req.body.name;
+    const email = req.body.email; 
+user.create({name,email},(err,user)=>{
+
+    if(err){
+        console.log(err)
+    }else{
+        user.save();
+        res.redirect("/");
+        
+    }
+
+})
+
+    
+   
+});
 
  
 router.post("/login",async (req,res)=>{
@@ -40,21 +63,6 @@ router.post("/login",async (req,res)=>{
         console.log(error);
     }
    
-
-
-//     admin.find({username:data.username,password:data.password},(err,reselt)=>{
-//         if(err){
-//             res.send("username and password not correct")
-//         }else if(reselt.length == 0){
-//             res.send("enter the password and the user name")
-//  }else{
-//     let token = jwt.sign(JSON.parse(JSON.stringify(reselt[0])), "shhhhh");
-//     //       //console.log(JSON.parse(result[0]));
-//           return res.header("auth-token", token).send(token);
-// console.log(reselt);
-
-//  }
-//     })
 
 });
 
@@ -110,6 +118,17 @@ router.get("/admin",(req,res)=>{
             console.log(err);
         }else{
             res.send(admins);
+        }
+})
+})
+
+router.get("/user",(req,res)=>{
+    user.find({},(err,users)=>{
+
+        if(err){
+            console.log(err);
+        }else{
+            res.send(users);
         }
 })
 })
