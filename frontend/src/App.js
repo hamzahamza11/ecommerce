@@ -4,7 +4,7 @@ import EditProduct from "./Component/EditProduct"
 import Footer from "./Component/headFoot/footer"
 import Header from "./Component/headFoot/header"
 import Login from "./auth/login"
-import Cart from "./Component/cart"
+import Cart from "./Component/Cart/cart"
 import {BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 

@@ -21,5 +21,17 @@ router.post("/addToCart/:id",(req, res, next) => {
       });
   })
 
+  router.get("/allCartProduct",(req,res)=>{
+
+    user.findById(req.user._id,(err,reselt)=>{
+      if(err){
+        console.log(err)
+      }else{
+        return res.send(reselt.cart.items)
+      }
+    })
+
+  })
+
 
 module.exports = router;

@@ -13,17 +13,23 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.post("/addOrder/:idPoduct/:quantity", (req, res, next) => {
 
     order.findOne({products:{$elemMatch:{productId:req.params.idProduct}}}).then(res=>{
+        if(res.length==0){
+            const oreder = new order({
+                products:[{
+                    productId:req.params.idProduct,
+                    quantity:req.params.quantity
+                   }
+               ]
+        
+        
+            })
+            
+        }
 
     }
 
     )
-    const oreder = new order({
-        products:[
-
-        ]
-
-
-    })
+    
 
 }
    );
