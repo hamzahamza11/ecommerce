@@ -7,13 +7,15 @@ function HomePage(){
 
     const fetchData = async ()=>{
         const  res = await axios.get("/api/allProduct");
-        console.log(res.data);
+       
         setData(res.data);
+        console.log(res.data)
     }
 
     useEffect(() => {
 
         fetchData();
+        console.log(data);
        },[]);
 
        
