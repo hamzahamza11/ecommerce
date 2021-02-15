@@ -19,6 +19,7 @@ function ProductCart({data}){
               {/* <li>{res}</li> */}
               {/* <li>{productName.data.title}</li> */}
               <li>{product.quantity}</li>
+              <li>x</li>
               
               
              
