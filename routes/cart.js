@@ -22,12 +22,19 @@ router.post("/addToCart/:id",(req, res, next) => {
   })
 
   
-router.put("/removeFromCart/:id",(req, res, next) => {
+router.put("/removeOneFromCart/:id",(req, res, next) => {
   const prodId = req.params.id;
   return req.user.removeOneFromCart(prodId).then(reselt=>{
     res.send(reselt);
   });
   
+})
+
+router.put("/removeProductFromCart/:id",(req,res)=>{
+  const prodId = req.params.id;
+  return req.user.removeFromCart(prodId).then(reselt=>{
+    res.send(reselt);
+  });
 })
 
   router.get("/allCartProduct",(req,res)=>{

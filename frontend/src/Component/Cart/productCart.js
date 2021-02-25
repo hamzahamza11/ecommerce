@@ -1,8 +1,9 @@
 import axios from "axios";
 import React ,{useState, useEffect} from "react";
 
-function ProductCart({data}){
+function ProductCart({data,removeOneFromCart,removeProductFromCart}){
 
+   
     // console.log(data);
     const products = data.map( (product)=>{
         
@@ -19,7 +20,13 @@ function ProductCart({data}){
               {/* <li>{res}</li> */}
               {/* <li>{productName.data.title}</li> */}
               <li>{product.quantity}</li>
-              <li>x</li>
+              <li onClick={()=>{
+                 removeOneFromCart(product.product._id)
+              }}> -</li>
+
+<li onClick={()=>{
+                 removeProductFromCart(product.product._id)
+              }}> x</li>
               
               
              

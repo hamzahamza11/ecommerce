@@ -59,8 +59,11 @@ userSchema.methods.removeFromCart = function (productId) {
 userSchema.methods.removeOneFromCart = function (productId) {
   const updatedCartItems = this.cart.items.map((item) => {
     
-    if (item.productId.toString() == productId.toString() && item.quantity >= 0){
+    if (item.productId.toString() == productId.toString() && item.quantity >0){
       item.quantity = item.quantity - 1 ;
+      if(item.quantity==0){
+        userSchema.methods.removeFromCart(productId);
+      }
     }
     return item;
   });
@@ -69,6 +72,11 @@ userSchema.methods.removeOneFromCart = function (productId) {
   this.cart.items = updatedCartItems;
   return this.save();
 };
+
+
+
+
+
 
 
 

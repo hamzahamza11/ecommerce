@@ -23,6 +23,20 @@ function Cart(){
 
     },[]);
 
+    const removeOneFromCart = async (id)=>{
+        console.log("hey")
+
+        const res = await axios.put(`/api/removeOneFromCart/${id}`);
+        fetchData();
+    }
+
+    const removeProductFromCart = async (id)=>{
+        console.log("hey")
+
+        const res = await axios.put(`/api/removeProductFromCart/${id}`);
+        fetchData();
+    }
+
 
   
 
@@ -33,7 +47,9 @@ function Cart(){
 return(
 
     <div>
-        <ProductCart data={data}/>
+        <ProductCart data={data} 
+        removeOneFromCart={removeOneFromCart}
+         removeProductFromCart={removeProductFromCart}/>
        
         </div>
 )
