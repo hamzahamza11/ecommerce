@@ -56,6 +56,22 @@ userSchema.methods.removeFromCart = function (productId) {
   return this.save();
 };
 
+userSchema.methods.removeOneFromCart = function (productId) {
+  const updatedCartItems = this.cart.items.map((item) => {
+    
+    if (item.productId.toString() == productId.toString() && item.quantity >= 0){
+      item.quantity = item.quantity - 1 ;
+    }
+    return item;
+  });
+
+  
+  this.cart.items = updatedCartItems;
+  return this.save();
+};
+
+
+
 userSchema.methods.clearCart = function () {
   this.cart = { items: [] };
   return this.save();

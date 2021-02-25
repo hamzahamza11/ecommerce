@@ -6,10 +6,7 @@ function Cart(){
 
     const [data,setData] = useState([]);
 
-
-   
-
-    const  fetchData = async ()=>{
+   const  fetchData = async ()=>{
 
         const  res = await axios.get("/api/allCartProduct");
         console.log(res.data);

@@ -21,16 +21,17 @@ router.post("/addToCart/:id",(req, res, next) => {
       });
   })
 
+  
+router.put("/removeFromCart/:id",(req, res, next) => {
+  const prodId = req.params.id;
+  return req.user.removeOneFromCart(prodId).then(reselt=>{
+    res.send(reselt);
+  });
+  
+})
+
   router.get("/allCartProduct",(req,res)=>{
 
-  //   user.findById(req.user._id)
-  //   .populate("productId").exec((err,reselt)=>{
-  //   if(err){
-  //     console.log(err)
-  //   }else{
-  //     return res.send(reselt.cart.items)
-  //   }
-  // })
 
   req.user
     .populate('cart.items.productId')
@@ -48,5 +49,14 @@ router.post("/addToCart/:id",(req, res, next) => {
 
   
 })
+
+
+router.put("/removeAllFromCart",(req, res, next) => {
+  
+  return req.user.clearCart();
+  
+})
+
+router
 
 module.exports = router;

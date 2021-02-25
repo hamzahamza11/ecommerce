@@ -14,10 +14,7 @@ function Header(){
 <div><a href="/singUp">singUp</a></div>
 <div><a href="/logout">logout</a></div>
 
-
-           
-
-        </div>
+     </div>
     )
 }
 
