@@ -5,6 +5,10 @@ import Footer from "./Component/headFoot/footer"
 import Header from "./Component/headFoot/header"
 import Login from "./auth/login"
 import Cart from "./Component/Cart/cart"
+
+////new components  
+import Products from "./sections/Products"
+
 import {BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 
@@ -15,6 +19,7 @@ function App() {
       <Header/>
 .      <Switch>
         <Route exact path="/" render={() => <HomePage/>} />
+        <Route exact path="/products" render={() => <Products/>} />
         <Route exact path="/cart" render={() => <Cart/>} />
         <Route exact path="/editProduct/:id" render={(props) => <EditProduct {...props}/>} />
         <Route exact path="/addProduct" render={() => <AddProduct/>} />
