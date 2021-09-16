@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const user = require("./modules/user");
 
-mongoose.connect("mongodb://localhost:27017/ecom");
+mongoose.connect("mongodb+srv://hamza:hamza@cluster0.k57by.mongodb.net/ecommerce?retryWrites=true&w=majority");
 
 
 app.get("/",(req,res)=>{
