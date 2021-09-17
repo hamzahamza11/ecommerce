@@ -1,5 +1,13 @@
 import axios from "axios";
+import Popup from "./PopupProductEdit";
 
+
+//
+
+const contentStyle = {
+  maxWidth: "600px",
+  width: "90%"
+};
 export default function Product({ product, deleteProduct }) {
   return (
     <div>
@@ -18,6 +26,16 @@ export default function Product({ product, deleteProduct }) {
         >
           Delete
         </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+           console.log("ok");
+          }}
+        >
+          Edit
+        </button>
+        <Popup  product={product}/>
+      
         {/* <button onClick={(e)=>{
                  e.preventDefault()
                  editProduct(product._id)}}>Edit</button>

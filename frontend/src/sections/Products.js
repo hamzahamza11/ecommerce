@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Product from "../components/Product";
+import { PopupExample } from "../components/PopupProductEdit";
 function Products() {
   const [products, setProducts] = useState([]);
 
@@ -36,6 +37,7 @@ function Products() {
     <div>
       <h1>All PRODUCTS</h1>
       {ProductsCart}
+      {/* <PopupExample/> */}
     </div>
   );
 }
