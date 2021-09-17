@@ -1,4 +1,5 @@
 import {useState} from "react";
+import PopupAddProduct from "../components/AddProduct"
 export default function AdminPage(){
 
     const [openManagingProduct,SetOpenManaginProduct] = useState(true);
@@ -41,7 +42,7 @@ const handleOpenStatistiques = (e)=>{
         </div>
 
         {
-            openManagingProduct? <h1>Products</h1> : null
+            openManagingProduct? <PopupAddProduct /> : null
         }
         {
             openManagingPermisions? <h1>Permissions</h1> : null
