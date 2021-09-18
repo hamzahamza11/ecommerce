@@ -8,9 +8,10 @@ const contentStyle = {
   maxWidth: "600px",
   width: "90%"
 };
-export default function Product({ product, deleteProduct }) {
+export default function Product({ product, deleteProduct ,goToProductProfile}) {
   return (
-    <div>
+    <div onClick={(e)=>{
+      e.preventDefault();   goToProductProfile(product._id)}}>
       <ul>
         <li>{product.title}</li>
         <li>

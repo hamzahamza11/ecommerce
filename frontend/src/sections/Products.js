@@ -23,6 +23,8 @@ function Products() {
     console.log(res);
   };
 
+  const goToProductProfile = productId => window.location.replace(`/productProfile/${productId}`);
+
   // const addToCart = async (id)=>{
   //     const res = await axios.post(`/api/addToCart/${id}`)
   //     console.log(res);
@@ -30,7 +32,7 @@ function Products() {
   // }
 
   const ProductsCart = products.map((product) => {
-    return <Product product={product} deleteProduct={deleteProduct}/>;
+    return <Product product={product} deleteProduct={deleteProduct} goToProductProfile={goToProductProfile}/>;
   });
 
   return (

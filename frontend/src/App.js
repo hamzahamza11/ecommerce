@@ -9,6 +9,7 @@ import AdminPage from "./sections/AdminPage"
 
 ////new components  
 import Products from "./sections/Products"
+import ProductProfile from "./sections/ProductProfile"
 
 import {BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/" render={() => <HomePage/>} />
         <Route exact path="/admin" render={() => <AdminPage/>} />
         <Route exact path="/products" render={() => <Products/>} />
+        <Route exact path="/productProfile/:id" render={(props) => <ProductProfile {...props}/>} />
         <Route exact path="/cart" render={() => <Cart/>} />
         <Route exact path="/editProduct/:id" render={(props) => <EditProduct {...props}/>} />
         <Route exact path="/addProduct" render={() => <AddProduct/>} />
