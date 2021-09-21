@@ -82,7 +82,7 @@ router.post("/singUp",async (req,res)=>{
     const password = req.body.password;
 
     const emailExist = await admin.findOne({username:username})
-    if(emailExist.length > 0) return res.status(400).send("emailExist")
+    if(emailExist) return res.status(400).send("emailExist")
   
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password,salt);

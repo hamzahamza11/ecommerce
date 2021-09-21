@@ -13,7 +13,10 @@ router.post("/addToCart/:id",(req, res, next) => {
     const prodId = req.params.id;
     product.findById(prodId)
       .then(product => {
+        console.log(req.user);
         return req.user.addToCart(product);
+      }).catch(err=>{
+        console.log(err)
       })
       .then(result => {
         console.log(result);

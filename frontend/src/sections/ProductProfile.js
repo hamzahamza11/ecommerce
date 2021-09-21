@@ -15,6 +15,11 @@ export default function ProductProfile({props}){
         setProduct(ProductData.data)
 
     }
+    const addToOrders = async (id)=>{
+      const res = await axios.post(`/api/addToCart/${id}`)
+      console.log(res);
+
+  }
 
     useEffect(() => {
 
@@ -24,7 +29,12 @@ export default function ProductProfile({props}){
 
 
 return (
-    <div>{product.title}</div>
+    <div>{product.title}
+    
+    <button onClick={(e)=>{
+                 e.preventDefault()
+                 addToOrders(product._id)}}>addToCart</button>
+    </div>
 )
 
 }
