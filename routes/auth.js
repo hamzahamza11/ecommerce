@@ -42,14 +42,31 @@ user.create({name,email},(err,user)=>{
 
  
 router.post("/login",async (req,res)=>{
-    console.log(req.body);
-    let data = req.body;
-    const user = await admin.findOne({username:data.username})
-    if(!user) return res.status(400).send("email or password dosen't exist")
+    console.log(req.session.isLoggedIn);
+    req.session.isLoggedIn= true;
+    console.log(req.session.isLoggedIn);
 
-    const validPass = await bcrypt.compare(data.password,user.password)
 
-    if(!validPass) return res.status(400).send("invalid password")
+    // console.log(req.body);
+    // let data = req.body;
+    // res.setHeader("Set-Cookie","loggedIn=true");
+    // const user = await admin.findOne({username:data.username})
+    // if(!user) return res.status(400).send("email or password dosen't exist")
+
+    // const validPass = await bcrypt.compare(data.password,user.password)
+
+    // if(!validPass) return res.status(400).send("invalid password")
+    
+    // if(validpass){
+    //     req.session.isLoggedIn= true;
+    //  req.session.user = user;
+    //  req.session.save(err=>{
+    //      console.log(err)
+    //      rex.redirect("/");
+    //  })
+
+    // }
+     
 
   
     try {
