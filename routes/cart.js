@@ -5,16 +5,34 @@ var bodyParser = require("body-parser");
 const user  = require("../modules/user")
 const product  = require("../modules/product")
 
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 
-router.post("/addToCart/:id",(req, res, next) => {
-    const prodId = req.params.id;
+
+const findUser = async (id)=>{
+ try {
+
+  return user.findById(id)
+ }catch(err){
+   console.log(err);
+
+ }
+    
+}
+
+
+
+router.post("/addToCart/:prodId/:idUser",async (req, res, next) => {
+  const prodId = req.params.prodId;
+    const idUser = req.params.idUser;
+    const UserData = await findUser(idUser);
+  console.log(req.user);
+    
     product.findById(prodId)
       .then(product => {
-        console.log(req.user);
-        return req.user.addToCart(product);
+        return UserData.addToCart(product);
       }).catch(err=>{
         console.log(err)
       })
@@ -25,25 +43,31 @@ router.post("/addToCart/:id",(req, res, next) => {
   })
 
   
-router.put("/removeOneFromCart/:id",(req, res, next) => {
-  const prodId = req.params.id;
-  return req.user.removeOneFromCart(prodId).then(reselt=>{
+router.put("/removeOneFromCart/:prodId/:idUser",async (req, res, next) => {
+  const prodId = req.params.prodId;
+  const idUser = req.params.idUser;
+  const UserData = await findUser(idUser);
+  return UserData.removeOneFromCart(prodId).then(reselt=>{
     res.send(reselt);
   });
   
 })
 
-router.put("/removeProductFromCart/:id",(req,res)=>{
-  const prodId = req.params.id;
-  return req.user.removeFromCart(prodId).then(reselt=>{
+router.put("/removeProductFromCart/:prodId/:idUser",async (req,res)=>{
+  const prodId = req.params.prodId;
+  const idUser = req.params.idUser;
+  const UserData = await findUser(idUser);
+  return UserData.removeFromCart(prodId).then(reselt=>{
     res.send(reselt);
   });
 })
 
-  router.get("/allCartProduct",(req,res)=>{
+  router.get("/allCartProduct/:idUser",async (req,res)=>{
+    const idUser = req.params.idUser;
+    const UserData = await findUser(idUser);
+    console.log(UserData)
 
-
-  req.user
+    UserData
     .populate('cart.items.productId')
     .execPopulate()
     .then(User => {
@@ -61,12 +85,13 @@ router.put("/removeProductFromCart/:id",(req,res)=>{
 })
 
 
-router.put("/removeAllFromCart",(req, res, next) => {
-  
-  return req.user.clearCart();
+router.put("/removeAllFromCart/:idUser",async (req, res, next) => {
+  const idUser = req.params.idUser;
+  const UserData = await findUser(idUser);
+  return UserData.clearCart();
   
 })
 
-router
+
 
 module.exports = router;

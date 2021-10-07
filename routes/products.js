@@ -10,9 +10,10 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 
 router.post("/addProduct",(req,res)=>{
+    
 
     
-    console.log(req.body);
+   
 
     const title = req.body.title;
     const description = req.body.description;
@@ -34,6 +35,8 @@ router.post("/addProduct",(req,res)=>{
 })
 
 router.get("/allProduct",(req,res)=>{
+   
+  
 
     product.find({},(err,products)=>{
 

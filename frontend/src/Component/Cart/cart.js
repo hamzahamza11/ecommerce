@@ -1,15 +1,17 @@
 import axios from "axios";
-import React ,{useState, useEffect} from "react";
+import React ,{useState, useContext,useEffect} from "react";
 import ProductCart from "./productCart"
+import { UserContext } from "../../contexts/userContext";
 
 function Cart(){
 
     const [data,setData] = useState([]);
+    const { userData, setUserData } = useContext(UserContext);
 
    const  fetchData = async ()=>{
 
-        const  res = await axios.get("/api/allCartProduct");
-        console.log(res.data);
+        const  res = await axios.get(`/api/allCartProduct/${userData._id}`);
+        console.log("cart user "+userData._id);
         setData(res.data);
      
       }
@@ -21,7 +23,7 @@ function Cart(){
         console.log(data);
        
 
-    },[]);
+    },[userData]);
 
     const removeOneFromCart = async (id)=>{
         console.log("hey")
