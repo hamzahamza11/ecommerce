@@ -10,8 +10,10 @@ const contentStyle = {
 };
 export default function Product({ product, deleteProduct ,goToProductProfile}) {
   return (
-    <div onClick={(e)=>{
-      e.preventDefault();   goToProductProfile(product._id)}}>
+    <div >
+        <button onClick={(e)=>{
+      e.stopPropagation();
+      e.preventDefault();   goToProductProfile(product._id)}}>Product profile</button>
       <ul>
         <li>{product.title}</li>
         <li>
@@ -21,6 +23,7 @@ export default function Product({ product, deleteProduct ,goToProductProfile}) {
         <li>{product.description}</li>
         <button
           onClick={(e) => {
+            e.stopPropagation()
             e.preventDefault();
             deleteProduct(product._id);
           }}
@@ -29,6 +32,7 @@ export default function Product({ product, deleteProduct ,goToProductProfile}) {
         </button>
         <button
           onClick={(e) => {
+            e.stopPropagation()
             e.preventDefault();
            console.log("ok");
           }}

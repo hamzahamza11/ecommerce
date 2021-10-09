@@ -11,11 +11,13 @@ function Popup({product})  {
   const [open, setOpen] = useState(false);
   const [newProductValue,setNewProductValue,reset] = useForm(product);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onOpenModal = (e) => {e.stopPropagation();setOpen(true);}
+  const onCloseModal = (e) => {e.stopPropagation();setOpen(false);}
 
 
   const handleChange= (e)=>{
+    e.stopPropagation();
+    
     setNewProductValue({...newProductValue,
         [e.target.name]:e.target.value
     })
@@ -24,6 +26,7 @@ function Popup({product})  {
 }
 
 const handleNumberChange =(e)=>{
+  console.log(e.target.value)
      const price = Number(e.target.value);
 
      setNewProductValue({
@@ -34,6 +37,7 @@ const handleNumberChange =(e)=>{
 
 const handleSubmit = async (e)=>{
 
+  e.stopPropagation();
      const res = await axios.put(`/api/editProduct/${product._id}`,newProductValue);
      console.log(res);
 

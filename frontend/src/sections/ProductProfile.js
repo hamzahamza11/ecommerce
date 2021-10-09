@@ -1,11 +1,13 @@
 import { useParams } from "react-router"
-import {useEffect , useState} from "react"
+import {useEffect ,useContext, useState} from "react"
 import axios from "axios";
+import { UserContext } from "../contexts/userContext";
 
 
 export default function ProductProfile({props}){
 
     const [product,setProduct] = useState([]);
+    const {userData,setUserData} = useContext(UserContext)
 
     let {id} = useParams();
     console.log(id)
@@ -16,7 +18,7 @@ export default function ProductProfile({props}){
 
     }
     const addToOrders = async (id)=>{
-      const res = await axios.post(`/api/addToCart/${id}`)
+      const res = await axios.post(`/api/addToCart/${id}/${userData._id}`)
       console.log(res);
 
   }

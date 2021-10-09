@@ -44,8 +44,8 @@ router.post("/addToCart/:prodId/:idUser",async (req, res, next) => {
 
   
 router.put("/removeOneFromCart/:prodId/:idUser",async (req, res, next) => {
-  const prodId = req.params.prodId;
-  const idUser = req.params.idUser;
+  const prodId = req.params?.prodId;
+  const idUser = req.params?.idUser;
   const UserData = await findUser(idUser);
   return UserData.removeOneFromCart(prodId).then(reselt=>{
     res.send(reselt);
@@ -54,8 +54,8 @@ router.put("/removeOneFromCart/:prodId/:idUser",async (req, res, next) => {
 })
 
 router.put("/removeProductFromCart/:prodId/:idUser",async (req,res)=>{
-  const prodId = req.params.prodId;
-  const idUser = req.params.idUser;
+  const prodId = req.params?.prodId;
+  const idUser = req.params?.idUser;
   const UserData = await findUser(idUser);
   return UserData.removeFromCart(prodId).then(reselt=>{
     res.send(reselt);
@@ -63,7 +63,8 @@ router.put("/removeProductFromCart/:prodId/:idUser",async (req,res)=>{
 })
 
   router.get("/allCartProduct/:idUser",async (req,res)=>{
-    const idUser = req.params.idUser;
+    const idUser = req.params?.idUser;
+    console.log(idUser)
     const UserData = await findUser(idUser);
     console.log(UserData)
 
@@ -78,6 +79,7 @@ router.put("/removeProductFromCart/:prodId/:idUser",async (req,res)=>{
       }
      
       );
+      console.log(products)
       res.send(products);
   }).catch(err => console.log(err));
 
@@ -86,7 +88,7 @@ router.put("/removeProductFromCart/:prodId/:idUser",async (req,res)=>{
 
 
 router.put("/removeAllFromCart/:idUser",async (req, res, next) => {
-  const idUser = req.params.idUser;
+  const idUser = req.params?.idUser;
   const UserData = await findUser(idUser);
   return UserData.clearCart();
   

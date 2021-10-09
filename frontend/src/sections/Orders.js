@@ -1,14 +1,20 @@
 import Order from "../components/Order"
 import axios from "axios";
-import {useState,useEffect} from "react"
+import {useState,useContext,useEffect} from "react"
+import { UserContext } from "../contexts/userContext";
 export default function Orders(){
     const [allOrders,setAllOrders] = useState([]);
+    let { userData, setUserData } = useContext(UserContext);
+   let  fetchData = async ()=>{
+    console.log(userData._id);
+    if(userData){
+        let  allCartProduct = await axios.get(`/api/allCartProduct/${userData._id}`);
+    console.log("all orders"+allCartProduct.data);
+    setAllOrders(allCartProduct.data);
 
-   const  fetchData = async ()=>{
-
-        const  allCartProduct = await axios.get("/api/allCartProduct");
-        console.log(allCartProduct.data);
-        setAllOrders(allCartProduct.data);
+    }
+    
+        
      
       }
   
@@ -19,20 +25,20 @@ export default function Orders(){
         console.log(allOrders);
        
 
-    },[]);
+    },[userData]);
 
     const removeOneFromCart = async (id)=>{
         console.log("hey")
 
-        const res = await axios.put(`/api/removeOneFromCart/${id}`);
-        fetchData();
+        const res = await axios.put(`/api/removeOneFromCart/${id}/${userData._id}`);
+      
     }
 
     const removeProductFromCart = async (id)=>{
         console.log("hey")
 
-        const res = await axios.put(`/api/removeProductFromCart/${id}`);
-        fetchData();
+        const res = await axios.put(`/api/removeProductFromCart/${id}/${userData._id}`);
+       
     }
 
 

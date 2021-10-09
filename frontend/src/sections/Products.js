@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Product from "../components/Product";
+import { useHistory } from "react-router-dom";
 import { PopupExample } from "../components/PopupProductEdit";
 function Products() {
   const [products, setProducts] = useState([]);
+  let history = useHistory();
 
   const fetchData = async () => {
     const res = await axios.get("/api/allProduct");
@@ -23,7 +25,7 @@ function Products() {
     console.log(res);
   };
 
-  const goToProductProfile = productId => window.location.replace(`/productProfile/${productId}`);
+  const goToProductProfile = productId => history.push(`/productProfile/${productId}`);
 
   // const addToCart = async (id)=>{
   //     const res = await axios.post(`/api/addToCart/${id}`)
