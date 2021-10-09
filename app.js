@@ -1,23 +1,26 @@
 const express= require("express");
 const app = express();
-
+const session = require("express-session");
+const MongoDbStore = require("connect-mongodb-session")(session);
 const mongoose = require("mongoose");
 const user = require("./modules/user");
+const MONGODB_URI = "mongodb+srv://hamza:hamza@cluster0.k57by.mongodb.net/ecommerce?retryWrites=true&w=majority"
+mongoose.connect(MONGODB_URI);
+const store = new MongoDbStore({
+  uri:MONGODB_URI,
+  collection:'sessions'
+});
+app.use(session({secret:"my secret",resave:false,saveUninitialized:false,store:store})) 
+//
 
-mongoose.connect("mongodb://localhost:27017/ecom");
+require('dotenv').config()
 
 
 app.get("/",(req,res)=>{
-    res.send("hello")
+    res.send("helloffff")
+    
 });
-app.use((req, res, next) => {
-    user.findById('601ee4b779838232d0b6ebe9')
-      .then(user => {
-        req.user = user;
-        next();
-      })
-      .catch(err => console.log(err));
-  });
+
 
 
 const products = require("./routes/products");
