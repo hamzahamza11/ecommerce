@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Product from "../components/Product";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../contexts/userContext";
 import { PopupExample } from "../components/PopupProductEdit";
 function Products() {
   const [products, setProducts] = useState([]);
+  const {userData,setUserData} = useContext(UserContext)
   let history = useHistory();
 
   const fetchData = async () => {
@@ -21,7 +23,7 @@ function Products() {
 
   const deleteProduct = async (id) => {
     window.location.reload();
-    const res = await axios.delete(`/api/deleteProduct/${id}`);
+    const res = await axios.delete(`/api/deleteProduct/${id}/${userData._id}`);
     console.log(res);
   };
 

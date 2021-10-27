@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import HomePage from "./Component/HomePage";
-import AddProduct from "./Component/addProduct";
-import EditProduct from "./Component/EditProduct";
+// import HomePage from "./Component/HomePage";
+// import AddProduct from "./Component/addProduct";
+// import EditProduct from "./Component/EditProduct";
 
 // import Login from "./auth/login"
-import Cart from "./Component/Cart/cart";
+// import Cart from "./Component/Cart/cart";
 
 ////new components
 import Footer from "./components/Footer";
@@ -17,6 +17,7 @@ import UserSingUp from "./sections/UserSingUp";
 import ProductProfile from "./sections/ProductProfile";
 import Orders from "./sections/Orders";
 import { UserContext } from "./contexts/userContext";
+import {ProductProfileProvider} from "./contexts/productProfileContext"
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -45,6 +46,7 @@ function App() {
     <div>
       <BrowserRouter>
         <UserContext.Provider value={{ userData, setUserData }}>
+          <ProductProfileProvider>
           <Header />.{" "}
           <Switch>
             {/* <Route exact path="/" render={() => <HomePage />} /> */}
@@ -56,7 +58,7 @@ function App() {
               path="/productProfile/:id"
               render={(props) => <ProductProfile {...props} />}
             />
-            <Route exact path="/cart" render={() => <Cart />} />
+            
             <Route exact path="/orders" render={() => <Orders />} />
             {/* <Route
               exact
@@ -78,6 +80,7 @@ function App() {
             />
           </Switch>
           <Footer />
+          </ProductProfileProvider>
         </UserContext.Provider>
       </BrowserRouter>
     </div>

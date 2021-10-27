@@ -15,10 +15,14 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  imageUrl: {
-    type: String,
-    required: true
+  image:{
+    type: Schema.Types.ObjectId, required: true,ref:"SingleFile" 
   },
+  multipleImages:{
+    type: Schema.Types.ObjectId ,ref:"MultipleFile",
+  }
+ 
+  
  
 });
 

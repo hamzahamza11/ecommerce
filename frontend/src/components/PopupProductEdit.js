@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from "axios" ;
-import useForm  from '../Component/hooks/useForm';
+import useForm  from '../hooks/useForm';
 
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
@@ -11,8 +11,8 @@ function Popup({product})  {
   const [open, setOpen] = useState(false);
   const [newProductValue,setNewProductValue,reset] = useForm(product);
 
-  const onOpenModal = (e) => {e.stopPropagation();setOpen(true);}
-  const onCloseModal = (e) => {e.stopPropagation();setOpen(false);}
+  const onOpenModal = () => {setOpen(true);}
+  const onCloseModal = () => {setOpen(false);}
 
 
   const handleChange= (e)=>{
@@ -55,7 +55,8 @@ const handleSubmit = async (e)=>{
             <input type="text" name="title"  onChange={handleChange} value={newProductValue.title} />
             <input type="text" name="price" onChange={handleNumberChange}  value={newProductValue.price}/>
             <input type="text" name="description" onChange={handleChange}   value={newProductValue.description}/>
-            <input type="text" name="imageUrl" onChange={handleChange}   value={newProductValue.imageUrl} />
+            <img src={newProductValue.image.filePath} />
+            <input type="file" name="image" onChange={handleChange}    />
 
             <button>submit</button>
             
@@ -66,3 +67,4 @@ const handleSubmit = async (e)=>{
 };
 
 export default Popup;
+

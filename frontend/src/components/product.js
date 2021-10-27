@@ -9,6 +9,7 @@ const contentStyle = {
   width: "90%"
 };
 export default function Product({ product, deleteProduct ,goToProductProfile}) {
+  
   return (
     <div >
         <button onClick={(e)=>{
@@ -17,7 +18,7 @@ export default function Product({ product, deleteProduct ,goToProductProfile}) {
       <ul>
         <li>{product.title}</li>
         <li>
-          <img src={product.imageUrl} />
+          <img src={product.image.filePath} />
         </li>
         <li>{product.price}</li>
         <li>{product.description}</li>

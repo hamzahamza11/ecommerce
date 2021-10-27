@@ -8,14 +8,52 @@ const singleFileUpload = async (req, res, next) => {
             filePath: req.file.path,
             fileType: req.file.mimetype,
             fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+            
         });
         await file.save();
-        res.status(201).send('File Uploaded Successfully');
+        res.json(file);
     }catch(error) {
         res.status(400).send(error.message);
     }
 }
+const singleFileUpdate = async (req, res, next) => {
+    console.log(req.file.originalname)
+    try{
+        
+        
+        SingleFile.findOneAndReplace(req.params.singleFileId,{
+                fileName: req.file.originalname,
+                filePath: req.file.path,
+                fileType: req.file.mimetype,
+                fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+            }).then(f=>s.save);
+       
+
+
+        
+        res.status(201).send('File Updated Successfully');
+    }catch(error) {
+        res.status(400).send(error.message);
+    }
+}
+const singleFileDelete = async (req, res, next) => {
+    console.log(req.file.originalname)
+    try{
+        
+        
+        await SingleFile.findOneAndDelete(req.params.singleFileId)
+     
+        res.status(201).send('File Updated Successfully');
+    }catch(error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+
+
 const multipleFileUpload = async (req, res, next) => {
+   
     try{
         let filesArray = [];
         req.files.forEach(element => {
@@ -27,12 +65,15 @@ const multipleFileUpload = async (req, res, next) => {
             }
             filesArray.push(file);
         });
+       
         const multipleFiles = new MultipleFile({
-            title: req.body.title,
+          title:"hamza",
             files: filesArray 
         });
-        await multipleFiles.save();
-        res.status(201).send('Files Uploaded Successfully');
+        
+        const res11= await multipleFiles.save();
+        console.log( req.body.title)
+        res.json(multipleFiles);
     }catch(error) {
         res.status(400).send(error.message);
     }
@@ -55,6 +96,8 @@ const getallMultipleFiles = async (req, res, next) => {
     }
 }
 
+
+
 const fileSizeFormatter = (bytes, decimal) => {
     if(bytes === 0){
         return '0 Bytes';
@@ -70,5 +113,7 @@ module.exports = {
     singleFileUpload,
     multipleFileUpload,
     getallSingleFiles,
-    getallMultipleFiles
+    getallMultipleFiles,
+    singleFileUpdate,
+    singleFileDelete
 }

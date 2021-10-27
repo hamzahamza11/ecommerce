@@ -28,7 +28,7 @@ router.post("/addToCart/:prodId/:idUser",async (req, res, next) => {
   const prodId = req.params.prodId;
     const idUser = req.params.idUser;
     const UserData = await findUser(idUser);
-  console.log(req.user);
+
     
     product.findById(prodId)
       .then(product => {
@@ -64,24 +64,30 @@ router.put("/removeProductFromCart/:prodId/:idUser",async (req,res)=>{
 
   router.get("/allCartProduct/:idUser",async (req,res)=>{
     const idUser = req.params?.idUser;
-    console.log(idUser)
+    console.log("hey"+idUser)
     const UserData = await findUser(idUser);
-    console.log(UserData)
-
-    UserData
-    .populate('cart.items.productId')
-    .execPopulate()
-    .then(User => {
-      console.log(User)
-      const products = User.cart.items.map(i => {
-        console.log(i.productId._doc)
-        return { quantity: i.quantity, product: { ...i.productId._doc } };
+    console.log("hey"+UserData)
+if(UserData){
+  UserData
+  .populate('cart.items.productId')
+  .execPopulate()
+  .then(UserDetails => {
+    console.log("hey user"+UserDetails)
+    const products = UserDetails.cart.items.map(i => {
+      console.log("hey Items"+i)
+      if(i.productId){
+return { quantity: i.quantity, product: { ...i.productId._doc } };
       }
-     
-      );
-      console.log(products)
-      res.send(products);
-  }).catch(err => console.log(err));
+      
+    })
+   
+    // // );
+    console.log(products)
+    res.send(products);
+}).catch(err => console.log(err));
+
+}
+  
 
   
 })

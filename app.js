@@ -4,7 +4,7 @@ const session = require("express-session");
 const MongoDbStore = require("connect-mongodb-session")(session);
 const mongoose = require("mongoose");
 const user = require("./modules/user");
-const multer = require("multer");
+const path = require('path');
 var cors = require('cors')
 const MONGODB_URI = "mongodb+srv://hamza:hamza@cluster0.k57by.mongodb.net/ecommerce?retryWrites=true&w=majority"
 mongoose.connect(MONGODB_URI);
@@ -24,7 +24,7 @@ app.get("/",(req,res)=>{
     
 });
 
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const products = require("./routes/products");
 const auth = require("./routes/auth");

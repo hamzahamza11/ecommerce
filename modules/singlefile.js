@@ -18,7 +18,12 @@ const singleFileSchema = new Schema({
     fileSize: {
         type: String,
         required: true
-    }
+    },
+    // userId: {
+    //     type: Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'User'
+    // }
 }, {timestamps: true});
 
 module.exports = mongoose.model('SingleFile', singleFileSchema);

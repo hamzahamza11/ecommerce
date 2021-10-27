@@ -7,7 +7,12 @@ const mulitipleFileSchema = new Schema({
         type: String,
         required: true
     },
-    files: [Object]
+    files: [Object],
+    //  userId: {
+    //     type: Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'User'
+    //   }
 }, {timestamps: true});
 
 module.exports = mongoose.model('MultipleFile', mulitipleFileSchema);
