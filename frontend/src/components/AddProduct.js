@@ -17,6 +17,10 @@ function PopupAddProduct() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
   const [imagesPreviewUrl, setImagesPreviewUrl] = useState("");
 
+  const [singleFileError,setSingleFileError] = useState("")
+  const [multipleFileError,setMultipleFileError] = useState("")
+  const [productError,setProductError] = useState([])
+
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
@@ -93,26 +97,67 @@ function PopupAddProduct() {
 
       formDataFile.append("file", singleFile);
 
+      try {
+        
       singleFileRes = await axios.post("/api/singleFile", formDataFile);
 
       console.log(singleFileRes.data._id);
+        
+      } catch (error) {
+        setSingleFileError(error)
+        console.log(singleFileError)
+        
+      }
+
     }
     if (multipleFiles) {
       const formDataFiles = new FormData();
+
+      
 
       for (let i = 0; i < multipleFiles.length; i++) {
         formDataFiles.append("files", multipleFiles[i]);
       }
       console.log("multiple: " + formDataFiles);
-      multipleFilesRes = await axios.post("/api/multipleFiles", formDataFiles);
+      try {
+        multipleFilesRes = await axios.post("/api/multipleFiles", formDataFiles);
       console.log("multiple: " + multipleFilesRes);
+        
+      } catch (error) {
+        setMultipleFileError(error)
+        console.log(multipleFileError)
+        
+        
+      }
+      
     }
 
-    const res = await axios.post("/api/addProduct", {
-      ...value,
-      singleFileId: singleFileRes?.data._id,
-      multipleFileId: multipleFilesRes?.data._id,
-    });
+    if(!multipleFiles){
+      const formDataFiles = new FormData();
+
+      
+      formDataFiles.append("files", multipleFiles);
+      
+     
+      multipleFilesRes = await axios.post("/api/multipleFiles", formDataFiles);
+     
+    }
+        
+    
+try {
+  const res = await axios.post("/api/addProduct", {
+    ...value,
+    singleFileId: singleFileRes?.data._id,
+    multipleFileId: multipleFilesRes?.data._id,
+  });
+  
+} catch (error) {
+  setProductError(error.response.data)
+  console.log(productError)
+
+  
+}
+    
   };
 
 const images = 
@@ -126,9 +171,9 @@ const images =
       <button onClick={onOpenModal}>Open modal</button>
       <Modal open={open} onClose={onCloseModal} center>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <input type="text" name="title" onChange={handleChange} />
-          <input type="text" name="price" onChange={handleNumberChange} />
-          <input type="text" name="description" onChange={handleChange} />
+          <input type="text" name="title" placeholder="title" onChange={handleChange} />
+          <input type="text" name="price" placeholder="price" placeonChange={handleNumberChange} />
+          <textarea name="description" placeholder="description" onChange={handleChange} />
           {imagePreviewUrl ? (
             <img src={imagePreviewUrl} />
           ) : (

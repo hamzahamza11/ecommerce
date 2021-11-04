@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
 const user = require("../modules/user")
+const {check,body} = require("express-validator/check")
+const {validationResult} = require("express-validator")
 
 const { upload } = require("../helpers/filehelper");
 const {
@@ -9,7 +11,8 @@ const {
   multipleFileUpload,
   getallSingleFiles,
   getallMultipleFiles,
-  singleFileUpdate
+  singleFileUpdate,
+  multipleFilesUpdate
 } = require("../controllers/fileuploaderController");
 const product = require("../modules/product");
 
@@ -26,12 +29,26 @@ const findUser = async (id)=>{
   }
      
  }
-router.post("/addProduct", (req, res) => {
+router.post("/addProduct",
+ [
+  body('title')
+    .isString()
+    .isLength({ min: 3 })
+    .trim(),
+  body('price').isFloat(),
+  body('description')
+    .isLength({ min: 5, max: 400 })
+    .trim()
+]
+
+,(req, res) => {
   const { title, description, price ,singleFileId,multipleFileId} = req.body;
 
   product.create({ title, description, price,image:singleFileId, multipleImages:multipleFileId}, (err, product) => {
     if (err) {
-      console.log(err);
+      return res.status(422).send({err,oldInput:
+        {title, description, price  }
+      })
     } else {
       product.save();
       res.redirect("/");
@@ -78,7 +95,16 @@ router.get("/product/:id", async (req, res) => {
    
 });
 
-router.put("/editProduct/:id", (req, res) => {
+router.put("/editProduct/:id",[
+  body('title')
+    .isString()
+    .isLength({ min: 3 })
+    .trim(),
+  body('price').isFloat(),
+  body('description')
+    .isLength({ min: 5, max: 400 })
+    .trim()
+], (req, res) => {
   
   const { title, description, price } = req.body;
 
@@ -117,6 +143,7 @@ router.delete("/deleteProduct/:prodId/:idUser", async (req, res) => {
 
 router.post("/singleFile", upload.single("file"), singleFileUpload);
 router.put("/putSingleFile/:singleFileId", upload.single("file"), singleFileUpdate);
+router.put("/putMultipleFiles/:multipleFilesId", upload.array("files"), multipleFilesUpdate);
 router.post("/multipleFiles", upload.array("files"), multipleFileUpload);
 router.get("/getSingleFiles", getallSingleFiles);
 

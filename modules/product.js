@@ -19,7 +19,7 @@ const productSchema = new Schema({
     type: Schema.Types.ObjectId, required: true,ref:"SingleFile" 
   },
   multipleImages:{
-    type: Schema.Types.ObjectId ,ref:"MultipleFile",
+    type: Schema.Types.ObjectId ,ref:"MultipleFile"
   }
  
   

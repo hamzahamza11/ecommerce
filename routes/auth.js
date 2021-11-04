@@ -4,11 +4,13 @@ var bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
 // const admin = require("../modules/admin");
 const user = require("../modules/user");
-const joi = require("joi");
+// const joi = require("joi");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 
+const {check,body} = require("express-validator/check")
+const {validationResult} = require("express-validator")
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -21,10 +23,10 @@ const transproter = nodemailer.createTransport(
   })
 );
 
-const schema = joi.object({
-  username: joi.string().min(6).required(),
-  password: joi.string().min(6).required(),
-});
+// const schema = joi.object({
+//   username: joi.string().min(6).required(),
+//   password: joi.string().min(6).required(),
+// });
 
 router.post("/user", async (req, res) => {
   const name = req.body.name;
@@ -91,13 +93,42 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/singUp", async (req, res) => {
+router.post("/singUp",
+[body("email").isEmail().withMessage("please add a valid email").custom((value,{req})=>{
+  return user.findOne({ email: value }).then(userDoc=>{
+    if(userDoc){
+      return Promise.reject("email already exist")
+    }
+  });
+}),
+body("password").isLength({min:5}).withMessage("please enter at least 5 characters."),body("name").isLength({min:1}).withMessage("choose a name"),
+body("username").custom((value,{req})=>{
+  return user.findOne({ username: value }).then(userDoc=>{
+    if(userDoc){
+      return Promise.reject("username already exist")
+    }
+  });
+}),
+body("confirmPassword").custom((value,{req})=>{
+  if(value !== req.body.password){
+    throw new Error("passwords have to match")
+  }
+  return true;
+
+})],
+async (req, res) => {
   console.log(req.body);
-
   const { username, password, email, name } = req.body;
-  const emailExist = await user.findOne({ username: username });
-  if (emailExist) return res.status(400).send("emailExist");
 
+  const errors = validationResult(req)
+if(!errors.isEmpty()){
+  return res.status(422).send({errorMessage:errors.array(),oldInput:
+    { username, password, email, name }
+  })
+}
+  
+
+ 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   user.create(
