@@ -183,13 +183,16 @@ const images =
           {
               multipleFiles1? images :null
           }
-
-          <input
+<div className="custom-file">
+<input
             type="file"
+            className="custom-file-input"
             name="files"
             onChange={MultipleFileChange}
             multiple
           />
+</div>
+          
           <button>submit</button>
         </form>
       </Modal>
