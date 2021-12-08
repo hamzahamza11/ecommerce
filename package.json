@@ -10,10 +10,10 @@
   "scripts": {
     "build":"cd frontend && npm run build",
     "install-client":"cd frontend && npm install",
-    "heroku-postbuild":"npm run install-client && npm run build",
-    "start": "node app.js",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm run  install-client && npm run build",
+ 
     "client":"cd frontend && npm start",
-    "dev": "concurrently -n 'server,client' \"nodemon app.js\" \"npm run client\""
+    "start": "concurrently -n 'server,client' \"nodemon app.js\" \"npm run client\""
   },
   "author": "hamza",
   "license": "ISC",
