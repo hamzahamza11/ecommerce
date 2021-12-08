@@ -17,9 +17,9 @@ function PopupAddProduct() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
   const [imagesPreviewUrl, setImagesPreviewUrl] = useState("");
 
-  const [singleFileError,setSingleFileError] = useState("")
-  const [multipleFileError,setMultipleFileError] = useState("")
-  const [productError,setProductError] = useState([])
+  const [singleFileError, setSingleFileError] = useState("");
+  const [multipleFileError, setMultipleFileError] = useState("");
+  const [productError, setProductError] = useState([]);
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -50,7 +50,7 @@ function PopupAddProduct() {
     //         setImagesPreviewUrl(reader.result);
     //       };
     //     reader.readAsDataURL(e.target.files[0]);
-        
+
     // });
     let ImagesArray = Object.entries(e.target.files).map((e) =>
       URL.createObjectURL(e[1])
@@ -59,8 +59,7 @@ function PopupAddProduct() {
     setMultipleFiles1(ImagesArray);
     console.log("file", multipleFiles1);
     setMultipleFiles(e.target.files);
-    
-    
+
     setMultipleProgress(0);
   };
   const singleFileOptions = {
@@ -98,103 +97,110 @@ function PopupAddProduct() {
       formDataFile.append("file", singleFile);
 
       try {
-        
-      singleFileRes = await axios.post("/api/singleFile", formDataFile);
+        singleFileRes = await axios.post("/api/singleFile", formDataFile);
 
-      console.log(singleFileRes.data._id);
-        
+        console.log(singleFileRes.data._id);
       } catch (error) {
-        setSingleFileError(error)
-        console.log(singleFileError)
-        
+        setSingleFileError(error);
+        console.log(singleFileError);
       }
-
     }
     if (multipleFiles) {
       const formDataFiles = new FormData();
-
-      
 
       for (let i = 0; i < multipleFiles.length; i++) {
         formDataFiles.append("files", multipleFiles[i]);
       }
       console.log("multiple: " + formDataFiles);
       try {
-        multipleFilesRes = await axios.post("/api/multipleFiles", formDataFiles);
-      console.log("multiple: " + multipleFilesRes);
-        
+        multipleFilesRes = await axios.post(
+          "/api/multipleFiles",
+          formDataFiles
+        );
+        console.log("multiple: " + multipleFilesRes);
       } catch (error) {
-        setMultipleFileError(error)
-        console.log(multipleFileError)
-        
-        
+        setMultipleFileError(error);
+        console.log(multipleFileError);
       }
-      
     }
 
-    if(!multipleFiles){
+    if (!multipleFiles) {
       const formDataFiles = new FormData();
 
-      
       formDataFiles.append("files", multipleFiles);
-      
-     
-      multipleFilesRes = await axios.post("/api/multipleFiles", formDataFiles);
-     
-    }
-        
-    
-try {
-  const res = await axios.post("/api/addProduct", {
-    ...value,
-    singleFileId: singleFileRes?.data._id,
-    multipleFileId: multipleFilesRes?.data._id,
-  });
-  
-} catch (error) {
-  setProductError(error.response.data)
-  console.log(productError)
 
-  
-}
-    
+      multipleFilesRes = await axios.post("/api/multipleFiles", formDataFiles);
+    }
+
+    try {
+      const res = await axios.post("/api/addProduct", {
+        ...value,
+        singleFileId: singleFileRes?.data._id,
+        multipleFileId: multipleFilesRes?.data._id,
+      });
+    } catch (error) {
+      setProductError(error.response.data);
+      console.log(productError);
+    }
   };
 
-const images = 
-    multipleFiles1.map(img=>{
-        return <img src={img}/>
-    })
-
+  const images = multipleFiles1.map((img) => {
+    return <img src={img} />;
+  });
 
   return (
     <div>
       <button onClick={onOpenModal}>Open modal</button>
       <Modal open={open} onClose={onCloseModal} center>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <input type="text" name="title" placeholder="title" onChange={handleChange} />
-          <input type="text" name="price" placeholder="price" placeonChange={handleNumberChange} />
-          <textarea name="description" placeholder="description" onChange={handleChange} />
+        <div >
+             <form onSubmit={handleSubmit} encType="multipart/form-data" >
+
+               <div className="overflow-y-scroll">
+               <input
+           
+            type="text"
+            name="title"
+            placeholder="title"
+            onChange={handleChange}
+          />
+          <input
+        
+            type="text"
+            name="price"
+            placeholder="price"
+            onChange={handleNumberChange}
+          />
+          <textarea
+          
+            name="description"
+            placeholder="description"
+            onChange={handleChange}
+          />
           {imagePreviewUrl ? (
             <img src={imagePreviewUrl} />
           ) : (
             <div>Please select an Image for Preview</div>
           )}
-          <input type="file" name="file" onChange={SingleFileChange} />
-          {
-              multipleFiles1? images :null
-          }
-<div className="custom-file">
-<input
-            type="file"
-            className="custom-file-input"
-            name="files"
-            onChange={MultipleFileChange}
-            multiple
-          />
-</div>
+          <input  type="file" name="file" onChange={SingleFileChange} />
+          {multipleFiles1 ? images : null}
+          <div className="custom-file">
+            <input
+              type="file"
           
+              name="files"
+              onChange={MultipleFileChange}
+              multiple
+            />
+          </div>
+
           <button>submit</button>
+
+               </div>
+               
+          
         </form>
+        </div>
+     
       </Modal>
     </div>
   );

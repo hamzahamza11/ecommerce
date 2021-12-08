@@ -5,7 +5,7 @@ import {useState} from "react";
 function Footer(){
  
     return(
-        <div>
+        <div className="bg-gray-900">
 
               the footer
 

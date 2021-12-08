@@ -49,7 +49,7 @@ return (
     <img src={product?.image?.filePath} />
     
     
-    <button onClick={(e)=>{
+    <button className= "py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300" onClick={(e)=>{
                  e.preventDefault()
                  console.log(product._id)
                  addToOrders(product._id)}}>addToCart</button>

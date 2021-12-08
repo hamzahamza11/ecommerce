@@ -36,7 +36,10 @@ app.use("/api",cart);
 
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.listen(3001,(err)=>{
+
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT,(err)=>{
     if(err){
         console.log(err);
     }

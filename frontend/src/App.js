@@ -6,7 +6,7 @@ import axios from "axios";
 
 // import Login from "./auth/login"
 // import Cart from "./Component/Cart/cart";
-
+import "./styles/output.css";
 ////new components
 import Footer from "./components/Footer";
 import Header from "./components/Header";

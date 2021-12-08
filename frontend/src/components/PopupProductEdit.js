@@ -90,7 +90,7 @@ const handleSubmit = async (e)=>{
     let singleFileRes;
      
      if( singleFileToUpdate){
-       console.log("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+       
       const formDataFile = new FormData();
 
       formDataFile.append("file", singleFileToUpdate);
@@ -124,7 +124,7 @@ return  <li><img src={image} /></li>})
 
   return (
     <div>
-      <button onClick={onOpenModal}>EditModel</button>
+      <button class="mt-6 py-2 px-2 bg-yellow-600 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300" onClick={onOpenModal}>EditModel</button>
       <Modal open={open} onClose={onCloseModal} center>
       <form onSubmit={handleSubmit}>
 
@@ -136,7 +136,7 @@ return  <li><img src={image} /></li>})
             {multipleFilesPreview.length>0? newImages:images}
             <input type="file" name="image" onChange={MultipleFileChange}  multiple  />
 
-            <button>submit</button>
+            <button >submit</button>
             
        </form>
       </Modal>

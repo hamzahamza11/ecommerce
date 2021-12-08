@@ -32,46 +32,42 @@ function Login() {
   };
 
   return (
-    <div className="containera">
-      <form onSubmit={handleSubmit}>
-
-
-      {/* <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">@</span>
-  </div>
-  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
-</div> */}
-
-
-        <div class="form-group">
-          <label> user name</label>
-          <input
-            type="text"
-            className="form-control"
+    <section class="flex justify-center items-center h-screen bg-gray-800">
+    <form onSubmit={handleSubmit} class="max-w-md w-full bg-gray-900 rounded p-6 space-y-4">
+        <div class="mb-4">
+            <p class="text-gray-400">Sign In</p>
+            <h2 class="text-xl font-bold text-white">Join our community</h2>
+        </div>
+        <div>
+            <input class="w-full p-2 mb-2 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600" type="text"
+          
             name="username"
             placeholder="useruname"
-            onChange={handleChange}
-          />
+            onChange={handleChange}/>
         </div>
-        
-
-        <div class="form-group">
-          <label> password</label>
-          <input
-            type="text"
-            className="form-control"
+        <div>
+            <input class="w-full p-2  mb-2 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600" type="text"
+            
             name="password"
             placeholder="password"
-            onChange={handleChange}
-          />
-           <small className="text-muted">passsword must be 8 characters</small>
+            onChange={handleChange}/>
         </div>
-       
-
-        <button className="btn  btn-lg  btn-success">submit</button>
-      </form>
-    </div>
+        <div>
+            <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200">Sign In</button>
+        </div>
+        <div class="flex items-center justify-between">
+            <div class="flex flex-row items-center">
+                <input type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"/>
+                <label for="comments" class="ml-2 text-sm font-normal text-gray-400">Remember me</label>
+            </div>
+            <div>
+                <a class="text-sm text-blue-600 hover:underline" href="#">Forgot password?</a>
+            </div>
+        </div>
+    </form>
+   
+</section>
+    
   );
 }
 
