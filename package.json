@@ -8,12 +8,12 @@
     "npm":"8.1.0"
   },
   "scripts": {
-    "build":"cd frontend && npm run build",
-    "install-client":"cd frontend && npm install",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm run  install-client && npm run build",
-    "start":"node app.js",
-    "client":"cd frontend && npm start",
-    "dev": "concurrently -n 'server,client' \"nodemon app.js\" \"npm run client\""
+    "client-install": "npm install --prefix frontend",
+    "start": "node server.js",
+    "server": "nodemon server.js --exec babel-node --presets babel-preset-env",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "hamza",
   "license": "ISC",
