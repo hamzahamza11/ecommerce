@@ -29,7 +29,7 @@ const handleOpenStatistiques = (e)=>{
 }
 
     return(
-        <div>
+        <div className="bg-gray-900 p-20 h-screen ">
         <div>
             <button
             onClick={handleOpenManagingProducts}
