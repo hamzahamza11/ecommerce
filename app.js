@@ -36,6 +36,10 @@ app.use("/api",cart);
 
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static("/frontend/build"))
+
+}
 
 const PORT = process.env.PORT || 3001;
 
