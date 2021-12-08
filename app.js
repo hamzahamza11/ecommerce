@@ -19,10 +19,7 @@ app.use(session({secret:"my secret",resave:false,saveUninitialized:false,store:s
 require('dotenv').config()
 app.use(cors());
 
-app.get("/",(req,res)=>{
-    res.send("helloffff")
-    
-});
+
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
