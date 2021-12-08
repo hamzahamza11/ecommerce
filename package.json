@@ -11,7 +11,9 @@
     "build":"cd frntend && npm run build",
     "install-client":"cd frontend && npm install",
     "heroku-postbuild":"npm run install-client && npm run build",
-    "start": "node app.js"
+    "start": "node app.js",
+    "client":"cd frontend && npm start",
+    "dev": "concurrently -n 'server,client' \"nodemon app.js\" \"npm run client\""
   },
   "author": "hamza",
   "license": "ISC",

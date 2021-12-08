@@ -47,5 +47,5 @@ app.listen(PORT,(err)=>{
     if(err){
         console.log(err);
     }
-    console.log("app is running");
+    console.log("app is running"+PORT);
 })
